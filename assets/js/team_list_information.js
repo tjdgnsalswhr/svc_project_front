@@ -2,155 +2,143 @@
 
 // JavaScript Document
 
-var store_serial='';
-var store_name='';
+var store_serial = '';
+var store_name = '';
 
 
-function init_list_page(){
-		var tmptmp = location.href.split("html")[1];
+function init_list_page() {
+	var tmptmp = location.href.split("html")[1];
 	/*
 		if(tmptmp.length==0)
 		{
 			alert("로그인이 필요합니다.")
 			location.href = "login.html";
 		}
-		*/
+		
 		var tmp = location.href.split("?")[1].split("=")[1];
 		store_name = decodeURIComponent(tmp.split("&")[0]);
 		store_serial = tmp.split("&")[1]; //시리얼 넘버
 		document.getElementById("list_title_id").innerHTML=store_name;
 		//var today = new Date();
+		*/
+
+	var today = new Date();
+	var year = today.getFullYear();
+	var month = today.getMonth() + 1;
+	if (month < 10)
+		month = "0" + month;
+	var day = today.getDate();
+	if (day < 10)
+		day = "0" + day;
+	var hour = today.getHours();
+	var minute = today.getMinutes();
+	if (minute < 10)
+		minute = "0" + minute;
+
+	var temp = "";
+	if (hour >= 12) {
+		temp = "pm"
+		if (hour == "13")
+			hour = "01";
+		else if (hour == "14")
+			hour = "02";
+		else if (hour == "15")
+			hour = "03";
+		else if (hour == "16")
+			hour = "04";
+		else if (hour == "17")
+			hour = "05";
+		else if (hour == "18")
+			hour = "06";
+		else if (hour == "19")
+			hour = "07";
+		else if (hour == "20")
+			hour = "08";
+		else if (hour == "21")
+			hour = "09";
+		else if (hour == "22")
+			hour = "10";
+		else if (hour == "23")
+			hour = "11";
+	}
+	else
+		temp = "am";
+
+	var end;
+	end = year + "-" + month + "-" + day + " " + hour + ":" + minute + " " + temp;
+
+	//alert(start);
+
+	var before = new Date();
+	var week = before.getTime() - (7 * 24 * 60 * 60 * 1000);
+	before.setTime(week);
+
+	var year = before.getFullYear();
+	var month = before.getMonth() + 1;
+	if (month < 10)
+		month = "0" + month;
+	var day = before.getDate();
+	if (day < 10)
+		day = "0" + day;
+	var hour = before.getHours();
+	var minute = before.getMinutes();
+	if (minute < 10)
+		minute = "0" + minute;
+
+	var temp = "";
+	if (hour >= 12) {
+		temp = "pm"
+		if (hour == "13")
+			hour = "01";
+		else if (hour == "14")
+			hour = "02";
+		else if (hour == "15")
+			hour = "03";
+		else if (hour == "16")
+			hour = "04";
+		else if (hour == "17")
+			hour = "05";
+		else if (hour == "18")
+			hour = "06";
+		else if (hour == "19")
+			hour = "07";
+		else if (hour == "20")
+			hour = "08";
+		else if (hour == "21")
+			hour = "09";
+		else if (hour == "22")
+			hour = "10";
+		else if (hour == "23")
+			hour = "11";
+	}
+	else
+		temp = "am";
+
+	var start;
+	start = year + "-" + month + "-" + day + " " + hour + ":" + minute + " " + temp;
+
+	//alert(end);
 
 
-		var today = new Date();
-		var year = today.getFullYear();
-		var month = today.getMonth()+1;
-		if(month<10)
-			month = "0"+month;
-		var day = today.getDate();
-		if(day<10)
-			day = "0"+day;
-		var hour = today.getHours();
-		var minute = today.getMinutes();
-		if(minute<10)
-			minute = "0" + minute;
+	$("#pick_start").val(start);
+	$("#pick_end").val(end);
+	get_team_list_store_page();
+	get_team_list_information_page();
+	choose_datetime();
+	event.preventDefault();
 
-		var temp = "";
-		if(hour>=12)
-		{
-			temp = "pm"
-			if(hour=="13")
-				hour = "01";
-			else if(hour=="14")
-				hour = "02";
-			else if(hour=="15")
-				hour = "03";
-			else if(hour=="16")
-				hour = "04";
-			else if(hour=="17")
-				hour = "05";
-			else if(hour=="18")
-				hour = "06";
-			else if(hour=="19")
-				hour = "07";
-			else if(hour=="20")
-				hour = "08";
-			else if(hour=="21")
-				hour = "09";
-			else if(hour=="22")
-				hour = "10";
-			else if(hour=="23")
-				hour = "11";
-		}
-		else
-			temp = "am";
-
-		var end;
-		end = year + "-" + month + "-" + day + " " + hour + ":" + minute + " " +temp;
-
-		//alert(start);
-
-		var before = new Date();
-		var week = before.getTime()-(7*24*60*60*1000);
-		before.setTime(week);
-
-		var year = before.getFullYear();
-		var month = before.getMonth()+1;
-		if(month<10)
-			month = "0"+month;
-		var day = before.getDate();
-		if(day<10)
-			day = "0"+day;
-		var hour = before.getHours();
-		var minute = before.getMinutes();
-		if(minute<10)
-			minute = "0" + minute;
-
-		var temp = "";
-		if(hour>=12)
-		{
-			temp = "pm"
-			if(hour=="13")
-				hour = "01";
-			else if(hour=="14")
-				hour = "02";
-			else if(hour=="15")
-				hour = "03";
-			else if(hour=="16")
-				hour = "04";
-			else if(hour=="17")
-				hour = "05";
-			else if(hour=="18")
-				hour = "06";
-			else if(hour=="19")
-				hour = "07";
-			else if(hour=="20")
-				hour = "08";
-			else if(hour=="21")
-				hour = "09";
-			else if(hour=="22")
-				hour = "10";
-			else if(hour=="23")
-				hour = "11";
-		}
-		else
-			temp = "am";
-
-		var start;
-		start = year + "-" + month + "-" + day + " " + hour + ":" + minute + " " +temp;
-
-		//alert(end);
-
-
-		$("#pick_start").val(start);
-		$("#pick_end").val(end);
-		get_main_page();
-	    get_list_page();
-		get_information_page();
-	    get_menu_page();
-	    choose_datetime();
-		event.preventDefault();
-	
 }
 
-function get_main_page(){
-			    document.getElementById("list_main_href_id").href = "./main.html?type="+store_name+"&"+store_serial;
+function get_team_list_store_page() {
+	document.getElementById("team_list_store_href_id").href = "./team_list_store.html?type=" + store_name + "&" + store_serial;
 }
 
-function get_information_page(){
-			    document.getElementById("list_information_href_id").href = "./information.html?type="+store_name+"&"+store_serial;
+function get_team_list_information_page() {
+	document.getElementById("team_list_information_href_id").href = "./team_list_information.html?type=" + store_name + "&" + store_serial;
 }
 
-function get_list_page(){
-			    document.getElementById("list_list_href_id").href = "./list.html?type="+store_name+"&"+store_serial;
-}
 
-function get_menu_page(){
-			    document.getElementById("list_menu_href_id").href = "./menu.html?type="+store_name+"&"+store_serial;
-}
-
-function choose_datetime()
-{
+function choose_datetime() {
 
 	var start_date = $("#pick_start").val();
 	//alert(start_date);
@@ -172,30 +160,29 @@ function choose_datetime()
 	//alert(from_ampm);
 	//alert(end_ampm);
 
-	if(from_ampm=="pm")
-	{
+	if (from_ampm == "pm") {
 		var temp = from_time.split(":")[0];
-		if(temp=="01")
+		if (temp == "01")
 			temp = "13";
-		else if(temp=="02")
+		else if (temp == "02")
 			temp = "14";
-		else if(temp=="03")
+		else if (temp == "03")
 			temp = "15";
-		else if(temp=="04")
+		else if (temp == "04")
 			temp = "16";
-		else if(temp=="05")
+		else if (temp == "05")
 			temp = "17";
-		else if(temp=="06")
+		else if (temp == "06")
 			temp = "18";
-		else if(temp=="07")
+		else if (temp == "07")
 			temp = "19";
-		else if(temp=="08")
+		else if (temp == "08")
 			temp = "20";
-		else if(temp=="09")
+		else if (temp == "09")
 			temp = "21";
-		else if(temp=="10")
+		else if (temp == "10")
 			temp = "22";
-		else if(temp=="11")
+		else if (temp == "11")
 			temp = "23";
 
 		from_time = temp + ":" + from_time.split(":")[1];
@@ -203,10 +190,9 @@ function choose_datetime()
 
 	}
 
-	if(from_ampm=="am")
-	{
+	if (from_ampm == "am") {
 		var temp = from_time.split(":")[0];
-		if(temp=="12")
+		if (temp == "12")
 			temp = "00";
 		from_time = temp + ":" + from_time.split(":")[1];
 	}
@@ -215,30 +201,29 @@ function choose_datetime()
 
 	//alert(from_time);
 
-	if(end_ampm=="pm")
-	{
+	if (end_ampm == "pm") {
 		var temp = end_time.split(":")[0];
-		if(temp=="01")
+		if (temp == "01")
 			temp = "13";
-		else if(temp=="02")
+		else if (temp == "02")
 			temp = "14";
-		else if(temp=="03")
+		else if (temp == "03")
 			temp = "15";
-		else if(temp=="04")
+		else if (temp == "04")
 			temp = "16";
-		else if(temp=="05")
+		else if (temp == "05")
 			temp = "17";
-		else if(temp=="06")
+		else if (temp == "06")
 			temp = "18";
-		else if(temp=="07")
+		else if (temp == "07")
 			temp = "19";
-		else if(temp=="08")
+		else if (temp == "08")
 			temp = "20";
-		else if(temp=="09")
+		else if (temp == "09")
 			temp = "21";
-		else if(temp=="10")
+		else if (temp == "10")
 			temp = "22";
-		else if(temp=="11")
+		else if (temp == "11")
 			temp = "23";
 
 		end_time = temp + ":" + end_time.split(":")[1];
@@ -246,10 +231,9 @@ function choose_datetime()
 
 	}
 
-	if(end_ampm=="am")
-	{
+	if (end_ampm == "am") {
 		var temp = end_time.split(":")[0];
-		if(temp=="12")
+		if (temp == "12")
 			temp = "00";
 		end_time = temp + ":" + end_time.split(":")[1];
 	}
@@ -281,11 +265,11 @@ function choose_datetime()
 				//alert(result);
 				var result1 = JSON.parse(result);
 				var temp_count = 1;
-				temp_count = temp_count*1;
+				temp_count = temp_count * 1;
 				$("#past_list").empty();
 				var temp = result.length;
 				//alert(temp);
-				if(temp==23)
+				if (temp == 23)
 					$("#past_list").append("<tr><td colspan='6' class='text-center text-gray'  style='font-size: x-large; font-weight: bold'><br>주문이 존재하지 않습니다</td></tr>");
 				else {
 					$.each(result1, function (key, value) {
